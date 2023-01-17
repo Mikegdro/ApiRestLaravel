@@ -42,7 +42,6 @@ class ApiAuthController extends Controller {
     }
 
     function logout(Request $request) {
-        dd(Auth::user()->token());
         $request->user()->token()->revoke();
         return response()->json(['Message' => 'Logged out']);
     }
