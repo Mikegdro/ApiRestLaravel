@@ -1,9 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\ApiAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +13,6 @@ use App\Http\Controllers\ApiAuthController;
 |
 */
 
-Route::post('login', [ApiAuthController::class, 'login']);
+Route::post('login', [\App\Http\Controllers\UserController::class, 'login']);
+Route::post('data', [\App\Http\Controllers\DataController::class, 'getData'])->middleware('validate.token');
 
-Route::get('logout', [ApiAuthController::class, 'logout']);
-
-Route::post('register', [ApiAuthController::class, 'register']);
-
-Route::get('protected', [ApiAuthController::class, 'protected']);
-
-Route::get('getData', [ApiAuthController::class, 'getData']);
