@@ -10,13 +10,18 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller {
     public function login(Request $request) {
+
         $payload = $request->all();
         $payload['expire'] = Carbon::now()->addHour();
 
-        $jwt = JWT::encode($payload, env('PRIVATE_KEY'), 'HS256');
+        try {
+            $jwt = JWT::encode($payload, env('PRIVATE_KEY'), 'HS256');
+        } catch (\Exception $e) {
+            dd($e);
+        }
+
 
         $jwt = "Bearer " . $jwt;
-
         $user = new User($request->all());
         $user->setAttribute('token', $jwt);
 
